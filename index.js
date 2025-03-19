@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 require('dotenv').config();
 const app = express();
 
+const  ProductRouter = require('./Route/Productroute')
 const UserRouter = require('./Route/UserRoute')
 const loginRoute = require('./Route/loginRoute')
 const { validateJWT } = require('./Middleware/verifyJWT')
@@ -16,6 +18,7 @@ app.get('/', function (req, res) {
     res.send('Welcome to Aarusoft');
 });
 
+app.use('/product', validateJWT, ProductRouter);
 app.use('/user', UserRouter);
 app.use('/auth', loginRoute)
 
